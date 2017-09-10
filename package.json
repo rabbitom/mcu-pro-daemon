@@ -1,0 +1,22 @@
+{
+  "name": "mcupro",
+  "version": "0.0.0",
+  "description": "Programming MCU",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.oschina.net:erabbit/mcupro.git"
+  },
+  "keywords": [
+    "MCU"
+  ],
+  "author": "erabbit",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.0",
+    "express": "^4.15.4"
+  }
+}
