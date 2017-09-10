@@ -1,7 +1,7 @@
 var exec = require('./exec.js');
 var spawn = require('./spawn.js');
 
-const cctoolcmd = 'cc-tool.run';
+const cctoolcmd = 'mcu-pro.cc-tool';
 
 class cctool {
 

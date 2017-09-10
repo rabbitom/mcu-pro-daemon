@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var CCTool = require('./cc-tool.js');
 
 var cctool = new CCTool();
