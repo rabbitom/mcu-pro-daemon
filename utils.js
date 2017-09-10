@@ -1,5 +1,5 @@
 function getFirmwarePath() {
-    var firmwarePath = process.env.SNAP_COMMON;
+    var firmwarePath = process.env.SNAP_DATA;
     if(firmwarePath == null)
         firmwarePath = 'firmwares/';
     else
