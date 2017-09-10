@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>MCU Pro</title>
+        <script src="jquery-3.1.1.min.js"></script>
+    </head>
+    <body>
+        <iframe name="upload-iframe" style="display:none;" frameborder=“0”></iframe>
+        <form target="upload-iframe" action="/firmwares" id="upload-form" method="post" enctype="multipart/form-data">
+            Firmware: <input type="file" name="firmware"/>
+        </form>
+        <button id="upload-button">upload</button>
+        <script>
+            $('#upload-button').click(function() {
+                $('#upload-form').submit();
+            });
+        </script>
+    </body>
+</html>

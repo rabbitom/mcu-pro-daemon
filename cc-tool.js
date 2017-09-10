@@ -1,7 +1,10 @@
 var exec = require('./exec.js');
 var spawn = require('./spawn.js');
+var utils = require('./utils.js');
 
 const cctoolcmd = 'cc-tool';
+
+const firmwarePath = utils.getFirmwarePath();
 
 class cctool {
 
@@ -39,7 +42,7 @@ class cctool {
     }
 
     static parseProgramArgs(configs) {
-        var args = ['-v', '-e', '-w', '../' + configs.file];
+        var args = ['-v', '-e', '-w', firmwarePath + configs.file];
         if(configs.mac)
             args = args.concat(['-b', configs.mac]);
         return args;
