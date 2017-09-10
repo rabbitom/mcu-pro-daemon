@@ -2,16 +2,76 @@
     <head>
         <title>MCU Pro</title>
         <script src="jquery-3.1.1.min.js"></script>
+        <style>
+            .horizontal-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 50px;
+            }
+        </style>
     </head>
     <body>
         <iframe name="upload-iframe" style="display:none;" frameborder=“0”></iframe>
-        <form target="upload-iframe" action="/firmwares" id="upload-form" method="post" enctype="multipart/form-data">
-            Firmware: <input type="file" name="firmware"/>
-        </form>
-        <button id="upload-button">upload</button>
+        <div class="horizontal-container">
+            <form target="upload-iframe" action="/firmwares" id="upload-form" method="post" enctype="multipart/form-data">
+                Firmware: <input type="file" name="firmware" id="firmware-file"/>
+            </form>
+            <button id="upload-button">upload</button>
+        </div>
+        <div class="horizontal-container">
+            Programmers:
+            <select id="programmers">
+            </select>
+            <button id="program-button">program</button>
+        </div>
+        <div class="horizontal-container">
+            Logs:<textarea id="program-log"></textarea>
+        </div>
         <script>
+            var programmers;
+            $.get('/programmers', function(res){
+                programmers = res.data;
+                console.log('programmers: ', programmers);
+                for(var programmer of programmers) {
+                    $("#programmers").append('<option value="cc-tool">CC Debgugger</option>')
+                }
+            });
             $('#upload-button').click(function() {
                 $('#upload-form').submit();
+            });
+            $('#program-button').click(function() {
+                var file = $('#firmware-file').val();
+                if((file == null) || (file == ""))
+                    alert('Please upload a firmware file!');
+                else {
+                    var divider = file.lastIndexOf('\\');
+                    var filename = file.substring(divider+1);
+                    $.ajax({
+                        url: '/program',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            programmer: {
+                                type: 'cc-tool'
+                            },
+                            configs: {
+                                file: filename
+                            }
+                        }),
+                        success: function(res) {
+                            if(res.code == 0)
+                                alert('Program Succeed!');
+                            else
+                                alert('Program Failed!');
+                            $('#program-log').text(res.data);
+                        },
+                        error: function() {
+                            alert('Program Failed!');
+                            $('#program-log').text(res.msg);
+                        }
+                    });
+                }
             });
         </script>
     </body>
